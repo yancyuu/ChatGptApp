@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+// 用于身份验证的口令信息
+message AuthToken {
+    // 内部员工(对应staff_id)或外部用户ID
+    string user_id = 2;
+    // 内部员工或外部用户的口令
+    string token = 3;
+    // 口令生成时间
+    int64 create_time = 4;
+    // 口令过期时间
+    int64 expire_time = 5;
+}

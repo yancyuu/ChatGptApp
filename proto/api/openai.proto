@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+// 用于身份验证的口令信息
+message Openai {
+    string id = 1;
+    string user_id = 2;
+    // 文本类型
+    enum Type{
+        TEXT= 0;
+    }
+    Type type = 3;
+    // 请求内容
+    oneof Promote{
+        string text = 4;
+    }
+    // 口令生成时间
+    int64 create_time = 5;
+    string response = 6;
+}

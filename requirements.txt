@@ -1,0 +1,16 @@
+Flask
+flask-httpauth
+protobuf
+python-Levenshtein
+pymongo
+oss2
+pytz
+requests
+gevent
+gunicorn
+python-dotenv
+ujson
+pyjwt
+wechatpy
+pycryptodome
+openai
