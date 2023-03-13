@@ -18,6 +18,6 @@ message Openai {
 }
 
 message Choice {
-    string text = 1;
-    string finish_reason = 2;
+    string message = 1;
+    string role = 2;
 }
