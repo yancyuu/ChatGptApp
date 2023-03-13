@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from controller.common_controller import CommonController
+from common_sdk.data_transform import protobuf_transformer
 from dao.constants import dao_constants
 from manager.api.openai.openai_manager import OpenaiManager
 from service.errors import CustomMessageError
@@ -32,7 +33,14 @@ class OpenaiController(CommonController):
         res = self.manager.make_completion(content)
         if res.result_code != 0:
             raise CustomMessageError("请求失败")
-        return res.result
+        if not res.result:
+            raise CustomMessageError("无信息返回")
+        openai_object = openai_pb.Openai()
+        for key in self.request.json:
+            openai_object.request[key] = str(self.get_json_param(key))
+        for choice in res.result:
+            openai_object.choices.append(protobuf_transformer.dict_to_protobuf(choice, openai_pb.Choice))
+        return self.manager.create(openai_object)
 
     def api_list(self):
         type = self.get_json_param("type", self.manager.MODEL)

@@ -9,11 +9,15 @@ message Openai {
         TEXT= 0;
     }
     Type type = 3;
-    // 请求内容
-    oneof Promote{
-        string text = 4;
-    }
+    // 请求
+    map <string, string> request = 4;
     // 口令生成时间
     int64 create_time = 5;
-    string response = 6;
+    // 返回值
+    repeated Choice choices = 6;
+}
+
+message Choice {
+    string text = 1;
+    string finish_reason = 2;
 }

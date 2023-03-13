@@ -8,7 +8,7 @@ class ApiResult(BaseApiResult):
 
     def __init__(self, result=None):
         self.__object = result.get("object")
-        self.__result = result.get("data") if self.__object not in ["text_completion", "edit", "chat.completion"] else result.get("choices")[0]
+        self.__result = result.get("data") if self.__object not in ["text_completion", "edit", "chat.completion"] else result.get("choices")
         self.__init()
 
     def __init(self):

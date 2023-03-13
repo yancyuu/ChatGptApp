@@ -138,7 +138,7 @@ cd /ChatGptApp && python app.py
 
        docker build -t chatai_service:v1.0 .
 
-4. 运行容器
+4. 运行容器并挂载本地文件
 
-       docker --name chatai_service -p 5000:5000 /bin/bash 
+       docker run -d --rm --name chatai-service -p 5000:5000 -v 主机项目目录:/app chatai_service:v1.0
 
