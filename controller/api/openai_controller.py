@@ -26,10 +26,10 @@ class OpenaiController(CommonController):
         }
 
     def make_completion(self):
-        prompt = self.get_json_param("prompt")
-        if not prompt:
+        content = self.get_json_param("content")
+        if not content:
             raise CustomMessageError("未输入文本")
-        res = self.manager.make_completion(prompt)
+        res = self.manager.make_completion(content)
         if res.result_code != 0:
             raise CustomMessageError("请求失败")
         return res.result

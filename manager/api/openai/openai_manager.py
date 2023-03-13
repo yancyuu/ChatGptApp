@@ -21,8 +21,10 @@ class OpenaiManager(CommonManager):
         self._api = Operate()
         self.customer_da_helper = dao_helper
 
-    def make_completion(self, prompt):
-        return self.api.completion(prompt, self.engine)
+    def make_completion(self, content):
+        if self.engine in ["gpt-3.5-turbo"]:
+            return self.api.chat_completion(content, self.engine)
+        return self.api.completion(content, self.engine)
 
     def api_list(self, type):
         if type == self.ENGINE:

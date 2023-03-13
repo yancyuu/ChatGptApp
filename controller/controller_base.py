@@ -29,6 +29,7 @@ class ControllerBase(object):
         return self._OP_FUNC_MAP
 
     def __init__(self, request):
+        self._token = None
         self._request = request
         self._user_id = None
         self._engine = self.get_json_param("engine", "text-davinci-003")
@@ -60,12 +61,13 @@ class ControllerBase(object):
         return True
 
     def do_operation(self, operation):
-        if not self._auth:
-            raise errors.Error(error_codes.TOKEN_EXPIRED)
-        if not self.check_permission(operation):
-            raise PermissionError('Permission denied.')
-        if operation not in self.op_func_map:
-            raise NotImplementedError('Operation not implemented: {}'.format(operation))
+        if operation not in ["login_by_password", "rejester"]:
+            if not self._auth:
+                raise errors.Error(error_codes.TOKEN_EXPIRED)
+            if not self.check_permission(operation):
+                raise PermissionError('Permission denied.')
+            if operation not in self.op_func_map:
+                raise NotImplementedError('Operation not implemented: {}'.format(operation))
         return self.op_func_map[operation]()
 
     def check_permission(self, operation, request_json=None):
