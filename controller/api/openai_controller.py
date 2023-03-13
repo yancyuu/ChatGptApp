@@ -36,6 +36,7 @@ class OpenaiController(CommonController):
         if not res.result:
             raise CustomMessageError("无信息返回")
         openai_object = openai_pb.Openai()
+        openai_object.user_id = self.user_id
         for key in self.request.json:
             openai_object.request[key] = str(self.get_json_param(key))
         for choice in res.result:
