@@ -40,7 +40,7 @@ class OpenaiController(CommonController):
             openai_object.request[key] = str(self.get_json_param(key))
         for choice in res.result:
             openai_object.choices.append(protobuf_transformer.dict_to_protobuf(choice, openai_pb.Choice))
-        return self.manager.create(openai_object)
+        return protobuf_transformer.protobuf_to_dict(self.manager.create(openai_object))
 
     def api_list(self):
         type = self.get_json_param("type", self.manager.MODEL)
