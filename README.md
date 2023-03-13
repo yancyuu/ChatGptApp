@@ -123,7 +123,7 @@ cd /ChatGptApp && python app.py
 **为了保证安全，最好将环境变量在初始化项目的时候打入镜像。我这使用docker构建初始化镜像，步骤如下**
 1. 编写初始化构建文件，将初始化环境变量和依赖项打入镜像：vim init
 
-       FROM python:3.10-slim AS base
+       FROM python:3.10 AS base
        RUN mkdir /app
        WORKDIR /app
        COPY requirements.txt .
@@ -134,7 +134,11 @@ cd /ChatGptApp && python app.py
 2. 执行初始构建并生成镜像
   
        docker build -f init -t base:v1.0 .
-3. 执行部署项目的构建文件（见项目中的dockerfile）
+3. 执行部署项目的构建文件（见项目中的Dockerfile）
 
-       docker build -t api_service:v1.0 .
+       docker build -t chatai_service:v1.0 .
+
+4. 运行容器
+
+       docker --name chatai_service -p 5000:5000 /bin/bash 
 
