@@ -20,4 +20,5 @@ message Openai {
 message Choice {
     string message = 1;
     string role = 2;
+    string finish_reason =3;
 }
