@@ -20,11 +20,11 @@ class OpenaiController(CommonController):
         super().__init__(request, dao_constants.DB_API, dao_constants.COLL_OPENAI_NAME,
                          openai_pb.Openai)
         self._manager = None
-        self._OP_FUNC_MAP = {
+        self._OP_FUNC_MAP.update({
             'make_completion': self.make_completion,
             'api_list': self.api_list,
             'edit': self.edit,
-        }
+        })
 
     def make_completion(self):
         content = self.get_json_param("content")
